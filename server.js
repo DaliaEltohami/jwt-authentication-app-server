@@ -3,7 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const userRouter = require("./routes/userRoutes");
-
+const path = require("path");
 const app = express();
 
 // Middlewares
@@ -21,10 +21,10 @@ app.use("/api/auth", userRouter);
 
 // Handle Files serving in production environment
 if (process.env.NODE_ENV === "production") {
-  app.use("/", express.static("public"));
+  app.use(express.static(path.join(__dirname, "public")));
 
-  app.get("*", (req, res) => {
-    res.send(__dirname + "/public/index.html");
+  app.get("*", (req, res) => (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "index.html"));
   });
 } else {
   app.get("/", (req, res) => {
