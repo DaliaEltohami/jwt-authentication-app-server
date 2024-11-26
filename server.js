@@ -23,6 +23,8 @@ app.use("/api/auth", userRouter);
 
 // Handle Files serving in production environment
 if (process.env.NODE_ENV === "production") {
+  console.log(path.join(__dirname, "public", "index.html"));
+
   app.use(express.static(path.join(__dirname, "public")));
 
   app.get("*", (req, res) => (req, res) => {
@@ -49,5 +51,5 @@ app.use(async (err, req, res, next) => {
 // Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log("Server Running on Port", PORT);
+  console.log("Server Running on Porttttttt", PORT);
 });
