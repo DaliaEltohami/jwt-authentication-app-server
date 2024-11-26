@@ -24,6 +24,7 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "public")));
 
   app.get("*", (req, res) => (req, res) => {
+    console.log("Received request for:", req.path);
     res.sendFile(path.join(__dirname, "public", "index.html"));
   });
 } else {
