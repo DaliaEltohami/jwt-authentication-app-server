@@ -16,6 +16,8 @@ mongoose.connect(process.env.MONGO_URI || connectionString).then(() => {
   console.log("MongoDB Connected Successfully");
 });
 
+console.log(path.join(__dirname, "public", "index.html"));
+
 // API routes
 app.use("/api/auth", userRouter);
 
@@ -23,9 +25,9 @@ app.use("/api/auth", userRouter);
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "public")));
 
-  app.get("/", (req, res) => (req, res) => {
+  app.get("*", (req, res) => (req, res) => {
     console.log("Received request for:", req.path);
-    res.sendFile(path.join(__dirname, "public", "index.html"));
+    res.send(path.join(__dirname, "public", "index.html"));
   });
 } else {
   app.get("/", (req, res) => {
